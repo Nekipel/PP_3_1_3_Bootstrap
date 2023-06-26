@@ -5,7 +5,7 @@ import ru.kata.spring.boot_security.demo.models.Person;
 
 import java.util.List;
 
-public interface PersonService extends UserDetailsService {
+public interface PersonService {
     List<Person> findAll();
 
     Person findByName(String username);

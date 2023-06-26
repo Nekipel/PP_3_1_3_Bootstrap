@@ -17,7 +17,6 @@ public class SetupDataLoader implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
     public SetupDataLoader(PersonRepositiry personRepositiry, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.personRepositiry = personRepositiry;
         this.roleRepository = roleRepository;

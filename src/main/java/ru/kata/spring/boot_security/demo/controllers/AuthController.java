@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ public class AuthController {
 
     private final PersonServiceImpl personService;
 
-    @Autowired
     public AuthController(PersonServiceImpl personService) {
         this.personService = personService;
     }
@@ -28,7 +26,6 @@ public class AuthController {
         String username = principal.getName();
         Person person = personService.findByName(username);
         Set<Role> roles = person.getRoles();
-//        String role = person.getRoles().
         model.addAttribute("person", person);
         model.addAttribute("roles", roles);
         return "/user";
