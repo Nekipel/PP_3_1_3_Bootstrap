@@ -16,9 +16,11 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">
-                    <span th:each="role: ${user.getRoles()}">
-                        <span th:text="${role.getRole().substring(5)}"></span>
-                    </span>
+                <span th:text="${user.userName}"></span>
+                <span>with roles</span>
+                <span th:each="role: ${user.getRoles()}">
+                    <span th:text="${role.getRole().substring(5)}"></span>
+                </span>
             </span>
             <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
         </div>
