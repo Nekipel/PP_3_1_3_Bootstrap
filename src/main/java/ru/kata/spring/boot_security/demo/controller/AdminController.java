@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
-import ru.kata.spring.boot_security.demo.services.RoleServiceImpl;
+import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,20 +30,18 @@ public class AdminController {
     @GetMapping()
     public String getAllUsers(Model model, Principal principal){
         model.addAttribute("users", userService.findAll());
-//        User user = userService.findByName(principal.getName());
         model.addAttribute("user", userService.findByName(principal.getName()));
         return "admin";
     }
     @GetMapping("/{id}")
     public String read(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
-        return "show";
+        return "redirect:/admin";
     }
     @GetMapping("/new")
     public String registrationPage(@ModelAttribute("user") User user, Model model) {
-//        List<Role> roles = roleService.getAllRoles();
         model.addAttribute("rolesAdd", roleService.getAllRoles());
-        return "/registration";
+        return "redirect:/admin";
     }
     @PostMapping()
     public String performRegistration(@ModelAttribute("user") User user) {

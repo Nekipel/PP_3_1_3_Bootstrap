@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.boot_security.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,16 +7,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.demo.security.LoaderUser;
+import ru.kata.spring.boot_security.demo.service.UserDetailsImpl;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-    private final LoaderUser loaderUser;
+    private final UserDetailsImpl userDetails;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, LoaderUser loaderUser) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsImpl userDetails) {
         this.successUserHandler = successUserHandler;
-        this.loaderUser = loaderUser;
+        this.userDetails = userDetails;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loaderUser).passwordEncoder(getPasswordEncoder());;
+        auth.userDetailsService(userDetails).passwordEncoder(getPasswordEncoder());;
     }
     @Bean
     public PasswordEncoder getPasswordEncoder() {
