@@ -16,7 +16,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">
-                    <span th:each="role: ${person.getRoles()}">
+                    <span th:each="role: ${user.getRoles()}">
                         <span th:text="${role.getRole().substring(5)}"></span>
                     </span>
             </span>
@@ -70,22 +70,22 @@
                                             </tr>
                                         </thead>
                                     <tbody>
-                                    <tr th:each="person : ${persons}">
-                                        <td th:text="${person.getId()}"></td>
-                                        <td th:text="${person.getUserName()}"></td>
-                                        <td th:text="${person.getLastName()}"></td>
-                                        <td th:text="${person.getAge()}"></td>
+                                    <tr th:each="user : ${users}">
+                                        <td th:text="${user.getId()}"></td>
+                                        <td th:text="${user.getUserName()}"></td>
+                                        <td th:text="${user.getLastName()}"></td>
+                                        <td th:text="${user.getAge()}"></td>
                                         <td>
-                                            <span th:each="role: ${person.getRoles()}">
+                                            <span th:each="role: ${user.getRoles()}">
                                                 <span th:text="${role.getRole().substring(5)}"></span>
                                             </span>
                                         </td>
                                         <td>
                                             <button class="btn btn-info" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#editModal'+person.id}"
-                                                    th:data-row="${person}">Edit</button>
+                                                    th:data-bs-target="${'#editModal'+user.id}"
+                                                    th:data-row="${user}">Edit</button>
                                             <div aria-hidden="true" aria-labelledby="editModalLabel" id="editModal"
-                                                 tabindex="-1" class="modal fade" th:id="${'editModal'+person.id}">
+                                                 tabindex="-1" class="modal fade" th:id="${'editModal'+user.id}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -94,8 +94,8 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <form th:method="PATCH"
-                                                              th:action="@{/admin/{id}(id=${person.getId()})}"
-                                                              th:object="${person}">
+                                                              th:action="@{/admin/{id}(id=${user.getId()})}"
+                                                              th:object="${user}">
 
                                                             <div class="modal-body">
 
@@ -158,12 +158,12 @@
                                         <td>
                                             <!--кнопка Delete -->
                                             <button class="btn btn-danger" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#delModal'+ person.id}"
-                                                    th:data-row="${person}">Delete
+                                                    th:data-bs-target="${'#delModal'+ user.id}"
+                                                    th:data-row="${user}">Delete
                                             </button>
                                             <!--Модальное окно Delete -->
                                             <div aria-hidden="true" aria-labelledby="delModal" id="delModal"
-                                                 tabindex="-1" class="modal fade" th:id="${'delModal'+person.id}">
+                                                 tabindex="-1" class="modal fade" th:id="${'delModal'+user.id}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
 
@@ -173,20 +173,20 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <form th:method="DELETE"
-                                                              th:action="@{/admin/{id}(id=${person.getId()})}">
+                                                              th:action="@{/admin/{id}(id=${user.getId()})}">
 
                                                             <div class="modal-body">
 
                                                                 <label for="idDelete" class="col-form-label">ID</label>
                                                                 <input type="text"
-                                                                       th:value="${person.id}"
+                                                                       th:value="${user.id}"
                                                                        name="id"
                                                                        class="form-control"
                                                                        id="idDelete" readonly/>
 
                                                                 <label for="nameDelete" class="col-form-label">Имя</label>
                                                                 <input type="text"
-                                                                       th:value="${person.userName}"
+                                                                       th:value="${user.userName}"
                                                                        name="userName"
                                                                        class="form-control"
                                                                        id="nameDelete" readonly/>
@@ -194,7 +194,7 @@
                                                                 <label for="lastNameDelete"
                                                                        class="col-form-label">Фамилия</label>
                                                                 <input type="text"
-                                                                       th:value="${person.lastName}"
+                                                                       th:value="${user.lastName}"
                                                                        name="lastName"
                                                                        class="form-control"
                                                                        id="lastNameDelete" readonly/>
@@ -202,7 +202,7 @@
                                                                 <label class="container-fluid "
                                                                        for="rolesDelete">Role</label>
                                                                 <select id="rolesDelete" class="form-select col-md-5"
-                                                                        th:each="role: ${person.roles}" name="roles"
+                                                                        th:each="role: ${user.roles}" name="roles"
                                                                         required="required"
                                                                         multiple="" size="2" disabled>
                                                                     <option th:utext="${role.getRole()}"></option>
@@ -232,7 +232,7 @@
                                 <div class="row col-sm-10 text-center">
                                     <h4>Add new user</h4>
                                 </div>
-                                <form th:method="POST" th:action="@{/admin}" th:object="${person}">
+                                <form th:method="POST" th:action="@{/admin}" th:object="${user}">
 
                                     <label for="idNew" class="col-form-label">ID</label>
                                     <input type="text" name="id"
@@ -288,12 +288,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td th:text="${person.id}"></td>
-                            <td th:text="${person.userName}"></td>
-                            <td th:text="${person.lastName}"></td>
-                            <td th:text="${person.age}"></td>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.userName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.age}"></td>
                             <td>
-                                        <span th:each="role: ${person.getRoles()}">
+                                        <span th:each="role: ${user.getRoles()}">
                                             <span th:text="${role.getRole().substring(5)}"></span>
                                         </span>
                             </td>

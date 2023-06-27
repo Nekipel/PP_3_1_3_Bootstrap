@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.models.Person;
 import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.services.PersonServiceImpl;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 import ru.kata.spring.boot_security.demo.services.RoleServiceImpl;
 
 import java.security.Principal;
@@ -21,52 +21,52 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final PersonServiceImpl personService;
+    private final UserServiceImpl userService;
     private final RoleServiceImpl roleService;
 
-    public AdminController(PersonServiceImpl personService, RoleServiceImpl roleService) {
-        this.personService = personService;
+    public AdminController(UserServiceImpl userService, RoleServiceImpl roleService) {
+        this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping()
     public String getAllUsers(Model model, Principal principal){
-        model.addAttribute("persons", personService.findAll());
-        Person person = personService.findByName(principal.getName());
-        model.addAttribute("person", person);
+        model.addAttribute("users", userService.findAll());
+//        User user = userService.findByName(principal.getName());
+        model.addAttribute("user", userService.findByName(principal.getName()));
         return "admin";
     }
     @GetMapping("/{id}")
     public String read(@PathVariable("id") long id, Model model) {
-        model.addAttribute("person", personService.getUser(id));
+        model.addAttribute("user", userService.getUser(id));
         return "show";
     }
     @GetMapping("/new")
-    public String registrationPage(@ModelAttribute("person") Person person, Model model) {
-        List<Role> roles = roleService.getAllRoles();
-        model.addAttribute("rolesAdd", roles);
+    public String registrationPage(@ModelAttribute("user") User user, Model model) {
+//        List<Role> roles = roleService.getAllRoles();
+        model.addAttribute("rolesAdd", roleService.getAllRoles());
         return "/registration";
     }
     @PostMapping()
-    public String performRegistration(@ModelAttribute("person") Person person) {
-        personService.save(person);
+    public String performRegistration(@ModelAttribute("user") User user) {
+        userService.save(user);
         return "redirect:/admin";
     }
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") long id) {
-        model.addAttribute("person", personService.getUser(id));
+        model.addAttribute("user", userService.getUser(id));
         return "admin";
     }
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") long id) {
-        personService.save(person);
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+        userService.save(user);
         return "redirect:/admin";
     }
 
     // Удаление пользователя
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") long id) {
-        personService.delete(personService.getUser(id).getId());
+        userService.delete(userService.getUser(id).getId());
         return "redirect:/admin";
     }
 }

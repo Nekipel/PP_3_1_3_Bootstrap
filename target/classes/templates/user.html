@@ -12,7 +12,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
             <span class="navbar-brand mb-0 h1"> With roles:
-                    <span th:each="role: ${person.getRoles()}">
+                    <span th:each="role: ${user.getRoles()}">
                         <span th:text="${role.getRole().substring(5)}" class="d-inline-block"></span>
                     </span>
             </span>
@@ -55,12 +55,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th><p th:text="${person.getId()}"></p></th>
-                            <th><p th:text="${person.getUserName()}"></p></th>
-                            <th><p th:text="${person.getLastName()}"></p></th>
-                            <th><p th:text="${person.getAge()}"></th>
+                            <th><p th:text="${user.getId()}"></p></th>
+                            <th><p th:text="${user.getUserName()}"></p></th>
+                            <th><p th:text="${user.getLastName()}"></p></th>
+                            <th><p th:text="${user.getAge()}"></th>
                             <th>
-                                <div th:each="r : ${person.getRoles()}">
+                                <div th:each="r : ${user.getRoles()}">
                                     <p id="role_field" th:text="${r.getRole().substring(5)}"></p>
                                 </div>
                             </th>

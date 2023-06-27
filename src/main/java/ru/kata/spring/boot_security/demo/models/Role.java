@@ -23,7 +23,7 @@ public class Role implements GrantedAuthority {
 
     @Transient
     @ManyToMany
-    private Set<Person> users;
+    private Set<User> users;
 
     public Role() {
     }
@@ -45,11 +45,11 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    public Set<Person> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<Person> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 }

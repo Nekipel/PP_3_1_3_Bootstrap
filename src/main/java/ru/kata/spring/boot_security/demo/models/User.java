@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
-public class Person {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,10 +33,10 @@ public class Person {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles;
 
-    public Person() {
+    public User() {
     }
 
-    public Person(String userName, String lastName, String password, int age) {
+    public User(String userName, String lastName, String password, int age) {
         this.userName = userName;
         this.lastName = lastName;
         this.password = password;
@@ -91,3 +91,4 @@ public class Person {
         this.age = age;
     }
 }
+
