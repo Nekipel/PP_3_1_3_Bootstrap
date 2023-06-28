@@ -15,12 +15,10 @@ import java.util.Set;
 public class SetupDataLoader implements CommandLineRunner {
     private final UserServiceImpl userService;
     private final RoleServiceImpl roleService;
-    private final PasswordEncoder passwordEncoder;
 
-    public SetupDataLoader(UserServiceImpl userService, RoleServiceImpl roleService, PasswordEncoder passwordEncoder) {
+    public SetupDataLoader(UserServiceImpl userService, RoleServiceImpl roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -35,13 +33,11 @@ public class SetupDataLoader implements CommandLineRunner {
         adminRoles.add(roleUser);
         userRoles.add(roleUser);
 
-        User userAdmin = new User("admin","admin", passwordEncoder.encode("admin"), 32);
-        User userUser = new User("user","user", passwordEncoder.encode("user"), 32);
-        System.out.println(userAdmin);
+        User userAdmin = new User("admin","admin", "admin", 32);
+        User userUser = new User("user","user", "user", 32);
         userAdmin.setRoles(adminRoles);
         userService.save(userAdmin);
         userUser.setRoles(userRoles);
-        System.out.println(userUser);
         userService.save(userUser);
     }
 }
