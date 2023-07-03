@@ -45,7 +45,9 @@ public class UserServiceImpl implements UserService {
     public void upDate(User user) {
         User oldUser = userRepository.findById(user.getId()).get();
         String oldPassword = oldUser.getPassword();
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+        if (user.getPassword() == null
+                || user.getPassword().isEmpty()
+                || user.getPassword().equals(oldUser.getPassword())) {
             user.setPassword(oldPassword);
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
